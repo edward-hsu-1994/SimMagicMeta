@@ -20,9 +20,52 @@ export class SimMagicMeta {
         const indexConfig = new DOMParser().parseFromString(indexConfigString, 'text/xml').documentElement;
         const meta = indexConfig.getElementsByTagName("ProjectMetadata")[0];
 
-        const result = new SimMagicMeta();
+        let result = new SimMagicMeta();
 
-
+        let attributes: Attr[] = [];
+        for (let _i = meta.attributes.length - 1; _i >= 0; _i--) {
+            attributes.push(meta.attributes[_i]);
+        }
+        for (let attribute of attributes) {
+            switch (attribute.name.toUpperCase()) {
+                case 'sliceCount'.toUpperCase(): {
+                    result.sliceCount = attribute.value;
+                    break;
+                }
+                case 'lastModifyTime'.toUpperCase(): {
+                    result.lastModifyTime = attribute.value;
+                    break;
+                }
+                case 'target'.toUpperCase(): {
+                    result.target = attribute.value;
+                    break;
+                }
+                case 'scope'.toUpperCase(): {
+                    result.scope = attribute.value;
+                    break;
+                }
+                case 'introduction'.toUpperCase(): {
+                    result.introduction = attribute.value;
+                    break;
+                }
+                case 'purpose'.toUpperCase(): {
+                    result.purpose = attribute.value;
+                    break;
+                }
+                case 'author'.toUpperCase(): {
+                    result.author = attribute.value;
+                    break;
+                }
+                case 'name'.toUpperCase(): {
+                    result.name = attribute.value;
+                    break;
+                }
+                default: {
+                    //statements; 
+                    break;
+                }
+            }
+        }
 
         return result;
     }
